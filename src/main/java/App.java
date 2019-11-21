@@ -1,5 +1,7 @@
 import io.javalin.Javalin;
 
+import static io.javalin.apibuilder.ApiBuilder.crud;
+
 public class App {
     public static void main(String[] args) {
 //        DB db = new DB();
@@ -11,6 +13,9 @@ public class App {
 ////        db.insert();
         Javalin app = Javalin.create().start(5100);
         DB db = new DB();
-        app.get("/", ctx -> ctx.result("Hello World!"));
+        //app.get("/", ctx -> ctx.result("Hello World!"));
+        app.routes(() -> {
+            crud("uploads/:id", new UploadController());
+        });
     }
 }
